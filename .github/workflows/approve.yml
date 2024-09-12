@@ -1,0 +1,17 @@
+name: approve
+
+on: pull_request # run on pull request
+
+permissions:
+  pull-requests: write # grant write permissions on the pull request endpoint
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    steps:
+      - run: | # approve the pull request
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type:application/json" \
+          -d '{"event":"APPROVE"}' \
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/reviews
