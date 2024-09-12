@@ -13,5 +13,5 @@ jobs:
           curl -X POST \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Content-Type:application/json" \
-          -d "{'event':'APPROVE'}" \
+          -d '{"event":"APPROVE"}' \
           https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/reviews
