@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: | # approve the pull request
-        curl --request POST \
-        --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-        --header 'authorization: Bearer ${{secrets.GITHUB_TOKEN}}' \
-        --header 'content-type: application/json' \
-        -d '{"event":"APPROVE"}'
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type:application/json" \
+          -d "{'event':'APPROVE'}" \
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/reviews
