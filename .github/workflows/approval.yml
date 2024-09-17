@@ -1,0 +1,16 @@
+name: approve_my_pr
+on: pull_request
+permissions: 
+  pull-requests: write # gran write permission on the PR endpoint
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    env:
+      repo: ${{ github.repository }}
+      pr: ${{ github.event.number }}
+    - run: |
+      curl --request POST \
+      --url https://api.github.com/repos/$repo/pulls/$pr/reviews \
+      --header 'authorization: Bearer ${{secrets.GITHUB_TOKEN}}' \
+      --header 'content-type: application/json' \
+      -d '{"event":"APPROVE"}' 
